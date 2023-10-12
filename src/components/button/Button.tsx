@@ -9,7 +9,7 @@ export interface ButtonCustomProps
    * Set the variant for the button.
    * @default 'M'
    */
-  variant?: "register" | "login";
+  variant?: "register" | "login" | "logout";
 }
 
 const ButtonRegister = styled("button", {
@@ -32,20 +32,30 @@ const ButtonLogin = styled("button", {
   color: "#6C3483",
   borderRadius: "5px",
 }));
+const ButtonLogout = styled("button", {
+  slot: "Root",
+  overridesResolver: (_, styles) => [styles.root],
+})<ButtonCustomProps>(() => ({
+  border: "1px dotted #000",
+  background: "#a31d4e",
+  padding: "5px",
+  color: "white",
+  borderRadius: "5px",
+}));
 
 export default (props: ButtonCustomProps) => {
   switch (props.variant) {
     case "register": {
       return <ButtonRegister {...props} />;
-      break;
     }
     case "login": {
       return <ButtonLogin {...props} />;
-      break;
+    }
+    case "logout": {
+      return <ButtonLogout {...props} />;
     }
     default: {
       console.log("Invalid choice");
-      break;
     }
   }
 };
